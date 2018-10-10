@@ -1,6 +1,6 @@
-# GProcess
+# GProcess - Rejoignez le process
 
-Gestionnaire de projets agiles
+Ce document répertorie les procédures de mise en place de l'environnement de développement pour l'application web et l'application Android.
 
 ## Version Javascript
 
