@@ -1,18 +1,31 @@
 # GProcess
 
-> Project Management Web Client
+Gestionnaire de projets agiles
 
-## Build Setup
+
+# Version Javascript
+
+## Prérequis
+'''
+Visual Studio Code : https://code.visualstudio.com/Download
+Node.js LTS version : https://nodejs.org/en/download/
+'''
+
+## Build du projet
+
+1. Ouvrir Visual Studio Code.
+2. Ouvrir le répertoire GProcess-JS des sources.
+3. Ouvrir un nouveau terminal (Ctrl + Shift + ù)
+4. Exécuter les commandes suivantes :
 
 ``` bash
-# install dependencies
+# installe les dépendances du projet
 npm install
 
-# serve with hot reload at localhost:8080
+# créer un serveur qui se rafraichit à chaque changement sur localhost:8080
 npm run dev
 
-# build for production with minification
+# créer un build pour la production
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
