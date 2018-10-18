@@ -15,7 +15,7 @@ Git Extensions : https://sourceforge.net/projects/gitextensions/
 Une fois tous les outils installé on commence par parametrer notre outil Git Extensions.  
 
 1. Se rendre dans le menu Outil > Paramètres
-2. Définir les liens vers Git.exe et Kdiff3 (mergetool et difftool) installés precedemment s'ils n'ont pas été detecté.
+2. Définir les liens vers Git.exe et Kdiff3 (mergetool et difftool) installés precedemment s'ils n'ont pas été detectés.
 3. Choisir un nom d'utilisateur/une adresse email qui seront utilisés pour vous identifier lors d'un commit/push.
 
 ### Telechargement du répertoire 
