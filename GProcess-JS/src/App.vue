@@ -1,12 +1,22 @@
 <template>
 
   <div id="app">
-    <div id="left-pane">
+    <v-app id="inspire">
+    <v-container fluid fill-height>
+    <v-layout row wrap  >
+    <v-flex xs3 class="text-xs-center"  >
       <img src="./assets/logo.png" width="50%"> 
-      <h2>GProcess - Connexion</h2>
-     
-    </div>
-    <div id="right-pane">
+      <h2 class="display-1 font-weight-regular">GProcess - Connexion</h2>
+ 
+     <v-form max-width="75%">
+            <v-text-field  prepend-icon="person" name="Username" label="Nom de compte"></v-text-field>
+            <v-text-field prepend-icon="lock" name="Password" label="Mot de passe" type="password"></v-text-field>
+            <v-btn primary large block>Me connecter</v-btn>
+               
+            </v-form>
+
+    </v-flex>
+    <v-flex xs9 >
          <v-carousel height=100%>
     <v-carousel-item 
       v-for="(item,i) in items"
@@ -15,8 +25,10 @@
       :src="item.src"
     ></v-carousel-item>
   </v-carousel>
-    </div>
-
+    </v-flex>
+</v-layout >
+    </v-container>
+    </v-app>
     </div>
 
 </template>
@@ -41,7 +53,8 @@ export default {
           {
             src: require('./assets/splash_screen.jpg')
           }
-        ]
+        ],
+      
     }
   },
   
@@ -50,45 +63,36 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   width:100%;
-   height: 100%;
-   margin: 0;
-   overflow: hidden;
-
-}
-
-
-
-#left-pane
-{
-  width: 25%;
+  background-color: white;
   height: 100%;
-  position: fixed;
-  
-  top: 0;
-  padding-top:20px;
-  padding-left:10;
-  padding-right: 10;
-  overflow: hidden;
-  text-align: center;
- 
-  
+
 }
 
-#right-pane
+#inspire
 {
-  width: 75%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  right:0;
-  overflow: hidden;
+  background-color: white;
 }
-h1, h2, p {
-  font-weight: normal;
+
+
+
+html, body {
+    font-family: Roboto, sans-serif;
+    height:100%;
+    width: 100%;
+}
+
+.container
+{
+  height: 100%;
+  padding: 0;
+}
+
+.v-form
+{
+  width: 75% !important; 
+  display: inline-block !important;
 }
 
 </style>
