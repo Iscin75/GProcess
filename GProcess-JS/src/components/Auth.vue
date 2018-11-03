@@ -8,9 +8,7 @@
                <v-form max-width="75%">
                   <v-text-field v-model="user" prepend-icon="person" name="Username" label="Nom de compte" required></v-text-field>
                   <v-text-field v-model="pass" prepend-icon="lock" name="Password" label="Mot de passe" type="password" required></v-text-field>
-                  <router-link :to="{name: 'Menu'}">
                      <v-btn primary large block @click="login" >Me connecter</v-btn>
-                  </router-link>
                </v-form>
             </v-flex>
             <v-flex xs9 >
@@ -59,8 +57,9 @@
    login : function() {
        if(this.user != "" && this.pass != "") {
            if(this.user == "admin" && this.pass == "admin") {
-               this.isLogged = true;
-               console.log(this.user + " " + this.pass)
+        
+               this.$router.isLogged = true;
+               this.$router.push({ name: 'Home' })
            } else {
                console.log("The username and / or password is incorrect");
            }
