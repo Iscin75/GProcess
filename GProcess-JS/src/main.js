@@ -3,13 +3,15 @@
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App'
-import router from './router'
+import {router} from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import { configureBackend } from './helpers';
 
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
+configureBackend();
 
 /* eslint-disable no-new */
 new Vue({

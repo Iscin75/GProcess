@@ -6,9 +6,8 @@ import MainMenu from '@/components/MainMenu'
 Vue.use(Router)
 
 
-const isLogged = false;
 
-const router = new Router({
+export const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -20,25 +19,25 @@ const router = new Router({
       path: '/home',
       name: 'Home',
       component: MainMenu,
-      meta: { requiresAuth: true },
       
     }
     
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
-  const isAuth = this.isLogged;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  if (requiresAuth && !isAuth) {
-    next('/login');
-  } 
-  else if (requiresAuth && isAuth) {
-    next();
-  } 
-  else {
-    next();
-  }
-  });
+  
+  const loginPage = ['/login'];
+  const authRequired = !loginPage.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
 
-export default router;
+  if(authRequired && !loggedIn)
+  {
+    return next({
+      path:'/login',
+      query: {returnUrl: to.path}
+    });
+  }
+  next();
+});
+

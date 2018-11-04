@@ -65,9 +65,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ]
+  ],
+  externals: {
+    // global app config object
+    config: JSON.stringify({
+        apiUrl: 'http://localhost:8080'
+    })
+  }
 })
-
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
   portfinder.getPort((err, port) => {

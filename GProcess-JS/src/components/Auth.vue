@@ -5,10 +5,11 @@
             <v-flex xs3 class="text-xs-center"  >
                <img src="../assets/logo.png" width="50%"> 
                <h2 class="display-1 font-weight-regular">GProcess - Connexion</h2>
-               <v-form max-width="75%">
-                  <v-text-field v-model="user" prepend-icon="person" name="Username" label="Nom de compte" required></v-text-field>
-                  <v-text-field v-model="pass" prepend-icon="lock" name="Password" label="Mot de passe" type="password" required></v-text-field>
-                     <v-btn primary large block @click="login" >Me connecter</v-btn>
+               <v-form max-width="75%" @submit.prevent="handleSubmit">
+                  <v-text-field v-model="username" prepend-icon="person" name="Username" label="Nom de compte" required></v-text-field>
+                  <v-text-field v-model="password" prepend-icon="lock" name="Password" label="Mot de passe" type="password" required></v-text-field>
+                     <v-btn primary large block >Me connecter</v-btn>
+                      <div v-if="error" class="alert alert-danger">{{error}}</div>
                </v-form>
             </v-flex>
             <v-flex xs9 >
@@ -26,13 +27,20 @@
    </v-app>
 </template>
 <script>
+
+    import { router } from '../router';
+    import { userService } from '../services';
    export default {
    
    data () {
    return {
-   user:"",
-   pass:"",
-   isLogged: false,
+    username: '',
+    password: '',
+    submitted: false,
+    loading: false,
+    returnUrl: '',
+    error: '',
+
    
    items: [
        {
@@ -52,27 +60,38 @@
    },
    
    
-   methods:
-   {
-   login : function() {
-       if(this.user != "" && this.pass != "") {
-           if(this.user == "admin" && this.pass == "admin") {
-        
-               this.$router.isLogged = true;
-               this.$router.push({ name: 'Home' })
-           } else {
-               console.log("The username and / or password is incorrect");
-           }
-       } else {
-           console.log("A username and password must be present");
-       }
-   },
-   }
-   
-   
-   
-   
-   }
+ created () {
+        // reset login status
+        userService.logout();
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.$route.query.returnUrl || '/login';
+    },
+
+methods: {
+    handleSubmit (e) {
+
+        this.submitted = true;
+        const { username, password } = this;
+
+        // stop here if form is invalid
+        if (!(username && password)) {
+            return;
+        }
+
+        this.loading = true;
+        userService.login(username, password)
+            .then(
+                user => router.push(this.returnUrl),
+                error => {
+                    this.error = error;
+                    this.loading = false;
+                }
+            );
+    }
+}
+};
+</script>
 </script>
 <style >
    #app {

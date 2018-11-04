@@ -22,6 +22,26 @@
       </v-container>
    </v-app>
 </template>
+
+
+<script>
+import { userService } from '../services';
+export default {
+    data () {
+        return {
+            user: {},
+           
+        }
+    },
+    created () {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.users.loading = true;
+
+    }
+};
+</script>
+
+
 <style scoped>
    .v-btn
    {
@@ -29,3 +49,4 @@
    height: 5vw;
    }
 </style>
+
