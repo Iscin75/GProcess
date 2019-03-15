@@ -1,6 +1,7 @@
 CREATE TABLE Permissions(
 	p_id INT PRIMARY KEY,
-	name CHAR(100)
+	name CHAR(100),
+	priority INT
  );
 
 CREATE TABLE RealmObjectType(
@@ -58,13 +59,13 @@ CREATE TABLE Model(
 	m_name CHAR(100) UNIQUE
 );
 
-INSERT INTO Permissions (p_id, name) VALUES
-	(1,'Unrelated'),
-	(2,'Undefined'),
-	(3,'Forbidden'),
-	(4,'None'),
-	(5,'Authorized'),
-	(6,'SuperAuthorized');
+INSERT INTO Permissions (p_id, name, priority) VALUES
+	(1,'Unrelated',6),
+	(2,'Undefined',5),
+	(3,'Forbidden',2),
+	(4,'None',4),
+	(5,'Authorized',3),
+	(6,'SuperAuthorized',1);
 	
 INSERT INTO RealmObjectType (rot_id, type_name)  VALUES
 	('1','None'),
