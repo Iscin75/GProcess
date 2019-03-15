@@ -1,13 +1,13 @@
-CREATE OR REPLACE FUNCTION securedReadROInfos(user_id VARCHAR, curr_id VARCHAR) 
+CREATE OR REPLACE FUNCTION securedUserRead(user_id VARCHAR, dest_user_id VARCHAR) 
 RETURNS TABLE(
-    r_ro_id CHAR(100),
-    r_designation CHAR(100),
-    r_description CHAR(100),
-    r_data_core jsonb,
-    r_security_groups TEXT[],
-    r_type CHAR(100),
-    r_my_realm CHAR(100)
+    r_u_id CHAR(100),
+    r_login CHAR(150),
+	r_password CHAR(50),
+	r_logged bool
+	
+
 ) AS $$
+
 
 DECLARE 
 
@@ -20,7 +20,7 @@ DECLARE
 
 BEGIN
 
-	SELECT security_groups INTO sg_groups FROM RealmObject WHERE ro_id = curr_id;
+	SELECT security_groups INTO sg_groups FROM RealmObject WHERE ro_id = dest_user_id;
 	FOREACH cur_sg in ARRAY sg_groups
 	LOOP
 		SELECT members INTO cur_members FROM SecurityGroup WHERE sg_id = cur_sg;
@@ -43,9 +43,9 @@ BEGIN
 	
 			RETURN QUERY SELECT *
 			FROM
-			RealmObject
+			Users
 			WHERE
-			ro_id = curr_id;
+			u_id = dest_user_id;
 		WHEN 2 THEN
 			RAISE EXCEPTION 'Forbidden';
 		WHEN 4 THEN
@@ -56,8 +56,8 @@ BEGIN
 			RAISE EXCEPTION 'Unrelated';
 	
 	END CASE;
-
+	
+	
 END; $$
-
 LANGUAGE 'plpgsql';
-   
+
