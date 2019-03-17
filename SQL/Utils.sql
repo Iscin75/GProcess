@@ -34,5 +34,12 @@ BEGIN
     RETURN cur_priority;
 
     END; $$
+LANGUAGE 'plpgsql';
+
+CREATE FUNCTION key_exists(some_json json, outer_key text)
+RETURNS boolean AS $$
+BEGIN
+    RETURN (some_json->outer_key) IS NOT NULL;
+END; $$ 
 
 LANGUAGE 'plpgsql';
