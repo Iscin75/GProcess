@@ -7,7 +7,7 @@ DECLARE
 
 BEGIN
 
-cur_priority = getPriority(user_id , dest_user_id , 'update_p') ;
+cur_priority = getUpdatePriority(user_id , dest_user_id ) ;
 
 CASE cur_priority
 		WHEN 1 OR 3 THEN

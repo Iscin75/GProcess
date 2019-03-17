@@ -16,10 +16,11 @@ DECLARE
  
 BEGIN
 	
-	cur_priority = getPriority(user_id, realm_id, 'superficial_read_p');
+	cur_priority = getSuperficialPriority(user_id, realm_id);
 	
 	CASE cur_priority
 		WHEN 1 OR 3 THEN
+            
 			RETURN QUERY SELECT *
 			FROM
 			RealmObject

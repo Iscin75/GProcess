@@ -15,7 +15,7 @@ DECLARE
 
 BEGIN
 	
-	cur_priority = getPriority(user_id , curr_id , 'read_p') ;
+	cur_priority = getReadPriority(user_id , curr_id ) ;
 	
 	CASE cur_priority
 		WHEN 1 OR 3 THEN

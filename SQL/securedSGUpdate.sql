@@ -8,7 +8,7 @@ DECLARE
 
 BEGIN
 	
-	cur_priority = cur_priority = getPriority(user_id, psg_id, 'update_p');
+	cur_priority  = getUpdatePriority(user_id, psg_id);
 	
 	CASE cur_priority
 		WHEN 1 OR 3 THEN
@@ -39,7 +39,7 @@ DECLARE
 
 BEGIN
 	
-	cur_priority = cur_priority = getPriority(user_id, psg_id, 'update_p');
+	cur_priority  = getUpdatePriority(user_id, psg_id);
 	
 	CASE cur_priority
 		WHEN 1 OR 3 THEN
