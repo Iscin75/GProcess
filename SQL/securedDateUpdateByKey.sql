@@ -21,17 +21,13 @@ BEGIN
 END; $$
 LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION securedDataJsonUpdateByKey(user_id VARCHAR, realm_id VARCHAR, p_value VARCHAR[], p_path VARCHAR[],  filter_key VARCHAR) 
+CREATE OR REPLACE FUNCTION securedDataJsonUpdateByKey(user_id VARCHAR, realm_id VARCHAR, p_value VARCHAR[], p_path VARCHAR,  filter_key VARCHAR) 
 RETURNS VOID as $$
 
 DECLARE 
 
  used_datacore jsonb;
  data_id VARCHAR;
- cur_priority INT;
- dataset jsonb;
- current_node VARCHAR;
-
  
 BEGIN
 
