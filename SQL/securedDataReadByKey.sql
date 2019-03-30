@@ -15,9 +15,9 @@ BEGIN
 	 {filter_key:"data_id"};
 	}
 	*/
-	SELECT	used_datacore -> filter_key INTO data_id  FROM used_datacore;
+	data_id = used_datacore->>filter_key;
 	
-	to_return = securedDataReadByUID(user_id, data_id);
+	to_return = securedDataReadByUID(user_id, data_id );
 	
 	return to_return;
 	
