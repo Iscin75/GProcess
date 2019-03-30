@@ -89,7 +89,7 @@ DECLARE
  cur_sg VARCHAR;
  cur_members VARCHAR[10];
  cur_member VARCHAR;
- cur_priority INT;
+ OUT cur_priority INT;
  priorities INT[10];
  cur_used_cruds INT;
  
