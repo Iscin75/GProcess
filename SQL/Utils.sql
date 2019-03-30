@@ -16,7 +16,7 @@ DECLARE
 BEGIN
 	
 	SELECT security_groups INTO sg_groups FROM RealmObject WHERE ro_id = dest_id;
-	
+
 	FOREACH cur_sg in ARRAY sg_groups
 	LOOP
 		SELECT members INTO cur_members FROM SecurityGroup WHERE sg_id = cur_sg;
@@ -129,6 +129,37 @@ CREATE  OR REPLACE FUNCTION key_exists(some_json json, outer_key text)
 RETURNS boolean AS $$
 BEGIN
     RETURN (some_json->outer_key) IS NOT NULL;
+END; $$ 
+
+LANGUAGE 'plpgsql';
+
+CREATE  OR REPLACE FUNCTION check_priority(user_id VARCHAR, curr_data_id VARCHAR) 
+RETURNS boolean AS $$
+	DECLARE 
+
+	 cur_priority INT;
+BEGIN
+	cur_priority = getReadPriority(user_id, curr_data_id);
+	
+	CASE cur_priority
+		WHEN 1 THEN
+			
+			return TRUE;
+		WHEN 2 THEN
+			RAISE EXCEPTION 'Forbidden';
+		WHEN 3 THEN
+			
+			return TRUE;
+		WHEN 4 THEN
+			RAISE EXCEPTION 'None';
+		WHEN 5 THEN
+			RAISE EXCEPTION 'Undefined';
+		WHEN 6 THEN
+			RAISE EXCEPTION 'Unrelated';
+	
+	END CASE;
+
+
 END; $$ 
 
 LANGUAGE 'plpgsql';
