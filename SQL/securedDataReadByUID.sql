@@ -8,25 +8,12 @@ DECLARE
  
 BEGIN
 	
-	cur_priority = getReadPriority(user_id, curr_data_id);
-	
-	CASE cur_priority
-		WHEN 1 THEN
-			SELECT datas INTO to_return FROM data WHERE data_id = curr_data_id ;
-			return to_return;
-		WHEN 2 THEN
-			RAISE EXCEPTION 'Forbidden';
-		WHEN 3 THEN
-			SELECT datas INTO to_return FROM data WHERE data_id = curr_data_id ;
-			return to_return;
-		WHEN 4 THEN
-			RAISE EXCEPTION 'None';
-		WHEN 5 THEN
-			RAISE EXCEPTION 'Undefined';
-		WHEN 6 THEN
-			RAISE EXCEPTION 'Unrelated';
-	
-	END CASE;
+	IF check_priority(user_id, curr_data_id) = TRUE THEN 
+		SELECT datas INTO to_return FROM data WHERE data_id = curr_data_id ;
+		return to_return;
+	END IF;
+
+
 	RETURN(cur_priority);
 END; $$
 
