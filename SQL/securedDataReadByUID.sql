@@ -11,11 +11,14 @@ BEGIN
 	cur_priority = getReadPriority(user_id, curr_data_id);
 	
 	CASE cur_priority
-		WHEN 1 OR 3 THEN
+		WHEN 1 THEN
 			SELECT datas INTO to_return FROM data WHERE data_id = curr_data_id ;
 			return to_return;
 		WHEN 2 THEN
 			RAISE EXCEPTION 'Forbidden';
+		WHEN 3 THEN
+			SELECT datas INTO to_return FROM data WHERE data_id = curr_data_id ;
+			return to_return;
 		WHEN 4 THEN
 			RAISE EXCEPTION 'None';
 		WHEN 5 THEN
@@ -24,7 +27,7 @@ BEGIN
 			RAISE EXCEPTION 'Unrelated';
 	
 	END CASE;
+	RETURN(cur_priority);
 END; $$
 
 LANGUAGE 'plpgsql';
-   
