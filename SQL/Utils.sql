@@ -10,6 +10,7 @@ DECLARE
  cur_priority INT;
  priorities INT[10];
  cur_used_cruds INT;
+ priotoReturn INT=100;
  
  
 BEGIN
@@ -24,17 +25,20 @@ BEGIN
 			IF cur_member = user_id THEN
 			SELECT priority INTO cur_priority FROM Permissions WHERE p_id = 
 					(SELECT read_p FROM SecurityGroup WHERE sg_id = cur_sg);
-					SELECT array_append(priorities, cur_priority);
-					
-					SELECT array_append(priorities, cur_priority);
+					IF cur_priority<priotoReturn THEN
+						priotoReturn = cur_priority;
+
+
+					END IF;
+
 				END IF;	
 		END LOOP;
 		
 	END LOOP;
 	
-	cur_priority = array_lower(priorities);
+	
     
-    RETURN cur_priority;
+    RETURN  priotoReturn;
 
     END; $$
 LANGUAGE 'plpgsql';
@@ -85,12 +89,12 @@ RETURNS INT AS $$
 
 DECLARE 
 	
- sg_groups VARCHAR[10];
+ sg_groups VARCHAR;
  cur_sg VARCHAR;
- cur_members VARCHAR[10];
+ cur_members VARCHAR;
  cur_member VARCHAR;
- OUT cur_priority INT;
- priorities INT[10];
+ cur_priority INT;
+ priorities INT;
  cur_used_cruds INT;
  
  
