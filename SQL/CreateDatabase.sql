@@ -102,3 +102,5 @@ INSERT INTO Realm (r_id, ip_port) VALUES
 	
 INSERT INTO data(data_id, datas, security_groups) VALUES
 	('03bbade3-ff5d-49bb-91b2-522e82b9b93d', '{}', ARRAY['6f422ee4-9aa1-49a2-94b8-d1d0fc679900']);
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
