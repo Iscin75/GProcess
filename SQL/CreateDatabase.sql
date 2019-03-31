@@ -56,7 +56,8 @@ CREATE TABLE SecurityGroup(
 
 CREATE TABLE Model(
 	m_id VARCHAR PRIMARY KEY references RealmObject(ro_id),
-	m_name VARCHAR UNIQUE
+	m_name VARCHAR UNIQUE,
+	target_id VARCHAR references RealmObject(ro_id)
 );
 
 INSERT INTO Permissions (p_id, name, priority) VALUES
@@ -87,8 +88,8 @@ INSERT INTO RealmObject(ro_id, designation, description, security_groups, type) 
 	('fff73e34-91af-4ed8-a79a-437bbcbed447','modelBasicRO', 'modelBasicRO', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'9'),
 	('03bbade3-ff5d-49bb-91b2-522e82b9b93d','rootData', 'Cest une data', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'8'); 
 
-INSERT INTO Model(m_id, m_name) VALUES
-	('fff73e34-91af-4ed8-a79a-437bbcbed447','basicRO');
+INSERT INTO Model(m_id, m_name, target_id) VALUES
+	('fff73e34-91af-4ed8-a79a-437bbcbed447','basicRO','d34fab0e-f5fc-4545-8eeb-cac3cd5cbe2a' );
 
 INSERT INTO Users(u_id, login, password, logged) VALUES
 	('6f422ee4-9aa1-49a2-94b8-d1d0fc679900','rootUser','monPass',FALSE),
