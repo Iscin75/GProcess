@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION securedSGRead(user_id VARCHAR, psg_id VARCHAR) 
 RETURNS TABLE(
-    r_sg_id CHAR(100),
+    r_sg_id VARCHAR,
     r_members TEXT[],
 	r_create_p INT,
 	r_read_p INT,
