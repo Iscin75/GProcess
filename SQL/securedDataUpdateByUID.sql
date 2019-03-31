@@ -1,5 +1,7 @@
+
+/* Cette fonction c'est de la merde. À ne pas utiliser*/
 CREATE OR REPLACE FUNCTION securedDataArrayUpdateByUID(user_id VARCHAR, curr_data_id VARCHAR, p_value VARCHAR) 
-RETURNS VOID as $$
+RETURNS BOOLEAN as $$
 
 DECLARE 
 
@@ -13,12 +15,14 @@ BEGIN
 			SELECT security_groups INTO to_modify FROM data WHERE data_id = curr_data_id ;
             UPDATE data SET security_groups = array_append(to_modify, p_value) WHERE data_id = curr_data_id;
 	END IF;
-	
+	RETURN TRUE;
 END; $$
 LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION securedDataJsonUpdateByUID(user_id VARCHAR, curr_data_id VARCHAR, p_value VARCHAR[], p_path VARCHAR) 
-RETURNS VOID as $$
+
+/* OK !*/
+CREATE OR REPLACE FUNCTION securedDataJsonUpdateByUID(user_id VARCHAR, curr_data_id VARCHAR, p_path TEXT[], p_value VARCHAR ) 
+RETURNS BOOLEAN as $$
 
 DECLARE 
 
@@ -29,8 +33,9 @@ BEGIN
 
 
 IF check_update_priority(user_id , curr_data_id) = TRUE THEN 
-			UPDATE data SET datas = jsonb_set(datas, '{' + p_path + '}', p_value::jsonb);
+			UPDATE data SET datas = jsonb_set(datas, p_path, cast(p_value AS jsonb))  WHERE data_id=curr_data_id;
 	END IF;
+	RETURN TRUE;
 END; $$
 
 LANGUAGE 'plpgsql';
