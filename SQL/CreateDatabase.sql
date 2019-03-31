@@ -1,51 +1,51 @@
 CREATE TABLE Permissions(
 	p_id INT PRIMARY KEY,
-	name CHAR(100),
+	name VARCHAR,
 	priority INT
  );
 
 CREATE TABLE RealmObjectType(
-    rot_id CHAR(100) PRIMARY KEY,
-    type_name CHAR(50) NOT NULL
+    rot_id VARCHAR PRIMARY KEY,
+    type_name VARCHAR NOT NULL
 );
 
 CREATE TABLE RealmObject(
-    ro_id CHAR(100) PRIMARY KEY,
-	designation CHAR(100) NOT NULL,
-    description CHAR(100) NOT NULL,
+    ro_id VARCHAR PRIMARY KEY,
+	designation VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
 	data_core jsonb,
 	security_groups TEXT[], 
-	type CHAR(100) references RealmObjectType(rot_id)
+	type VARCHAR references RealmObjectType(rot_id)
 );
 
 CREATE TABLE Users(
-    u_id CHAR(100) PRIMARY KEY references RealmObject(ro_id),
-    login CHAR(50) NOT NULL UNIQUE,
-    password CHAR(50) NOT NULL,
+    u_id VARCHAR PRIMARY KEY references RealmObject(ro_id),
+    login VARCHAR NOT NULL UNIQUE,
+    password VARCHAR NOT NULL,
 	logged boolean NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE Realm(
-	r_id CHAR(100) PRIMARY KEY references RealmObject(ro_id),
-	ip_port CHAR(100) NOT NULL,
+	r_id VARCHAR PRIMARY KEY references RealmObject(ro_id),
+	ip_port VARCHAR NOT NULL,
 	global_rules jsonb,
-	root_process CHAR(100) references RealmObjectType(rot_id),
-	root_user CHAR(100) references Users(u_id),
-	unique_name CHAR(100) UNIQUE
+	root_process VARCHAR references RealmObjectType(rot_id),
+	root_user VARCHAR references Users(u_id),
+	unique_name VARCHAR UNIQUE
 );
 
 ALTER TABLE RealmObject
-	ADD COLUMN my_realm CHAR(100) references Realm(r_id),
-	ADD COLUMN current_realm CHAR(100) references Realm(r_id);
+	ADD COLUMN my_realm VARCHAR references Realm(r_id),
+	ADD COLUMN current_realm VARCHAR references Realm(r_id);
 
 CREATE TABLE Data(
-	data_id  CHAR(100) PRIMARY KEY references RealmObject(ro_id),
+	data_id  VARCHAR PRIMARY KEY references RealmObject(ro_id),
 	datas jsonb NOT NULL,
 	security_groups TEXT[] 
 );
 
 CREATE TABLE SecurityGroup(
-	sg_id  CHAR(100) PRIMARY KEY references RealmObject(ro_id),
+	sg_id  VARCHAR PRIMARY KEY references RealmObject(ro_id),
 	members TEXT[],
 	create_p INT NOT NULL references Permissions(p_id),
 	read_p INT NOT NULL references Permissions(p_id),
@@ -55,8 +55,8 @@ CREATE TABLE SecurityGroup(
 );
 
 CREATE TABLE Model(
-	m_id CHAR(100) PRIMARY KEY references RealmObject(ro_id),
-	m_name CHAR(100) UNIQUE
+	m_id VARCHAR PRIMARY KEY references RealmObject(ro_id),
+	m_name VARCHAR UNIQUE
 );
 
 INSERT INTO Permissions (p_id, name, priority) VALUES
