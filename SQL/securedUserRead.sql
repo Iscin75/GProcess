@@ -15,7 +15,7 @@ DECLARE
 
 BEGIN
 
-	IF check_priority(user_id , dest_user_id) = TRUE THEN 
+	IF check_read_priority(user_id , dest_user_id) = TRUE THEN 
 					RETURN QUERY SELECT *
 			FROM
 			Users

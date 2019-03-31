@@ -43,22 +43,12 @@ DECLARE
 
 BEGIN
 	
-	cur_priority  = getUpdatePriority(user_id, psg_id);
 	
-	CASE cur_priority
-		WHEN 1 OR 3 THEN
-             SELECT members INTO cur_members FROM securityGroup WHERE sg_id = psg_id;
+	IF check_update_priority(user_id , psg_id) = TRUE THEN 
+			SELECT members INTO cur_members FROM securityGroup WHERE sg_id = psg_id;
 			 UPDATE securityGroup SET members = array_cat(cur_members, members_id ) WHERE sg_id = psg_id;
-		WHEN 2 THEN
-			RAISE EXCEPTION 'Forbidden';
-		WHEN 4 THEN
-			RAISE EXCEPTION 'None';
-		WHEN 5 THEN
-			RAISE EXCEPTION 'Undefined';
-		WHEN 6 THEN
-			RAISE EXCEPTION 'Unrelated';
+	END IF;
 	
-	END CASE;
 	
 	
 END; $$

@@ -15,26 +15,16 @@ DECLARE
 
 BEGIN
 	
-	cur_priority = getReadPriority(user_id , curr_id ) ;
 	
-	CASE cur_priority
-		WHEN 1 OR 3 THEN
 	
+	IF check_read_priority(user_id , curr_id) = TRUE THEN 
 			RETURN QUERY SELECT *
 			FROM
 			RealmObject
 			WHERE
 			ro_id = curr_id;
-		WHEN 2 THEN
-			RAISE EXCEPTION 'Forbidden';
-		WHEN 4 THEN
-			RAISE EXCEPTION 'None';
-		WHEN 5 THEN
-			RAISE EXCEPTION 'Undefined';
-		WHEN 6 THEN
-			RAISE EXCEPTION 'Unrelated';
-	
-	END CASE;
+	END IF;
+		
 
 END; $$
 

@@ -8,7 +8,7 @@ DECLARE
  
 BEGIN
 	
-	IF check_priority(user_id, curr_data_id) = TRUE THEN 
+	IF check_read_priority(user_id, curr_data_id) = TRUE THEN 
 		SELECT datas INTO to_return FROM data WHERE data_id = curr_data_id ;
 		return to_return;
 	END IF;

@@ -16,26 +16,18 @@ DECLARE
  
 BEGIN
 	
-	cur_priority = getSuperficialPriority(user_id, realm_id);
 	
-	CASE cur_priority
-		WHEN 1 OR 3 THEN
-            
+	
+	IF check_superficial_read_priority(user_id , realm_id) = TRUE THEN 
 			RETURN QUERY SELECT *
 			FROM
 			RealmObject
 			WHERE
 			ro_id = realm_id;
-		WHEN 2 THEN
-			RAISE EXCEPTION 'Forbidden';
-		WHEN 4 THEN
-			RAISE EXCEPTION 'None';
-		WHEN 5 THEN
-			RAISE EXCEPTION 'Undefined';
-		WHEN 6 THEN
-			RAISE EXCEPTION 'Unrelated';
+	END IF;
+			
 	
-	END CASE;
+	
 END; $$
 
 LANGUAGE 'plpgsql';
