@@ -12,7 +12,7 @@ DECLARE
 BEGIN
 	SELECT target_id INTO targ_id FROM Model WHERE m_name = model_name ;
 
-    IF check_read_priority(user_id, targ_id) = TRUE THEN 
+    IF check_create_priority(user_id, targ_id) = TRUE THEN 
 		SELECT designation INTO model_design FROM RealmObject WHERE ro_id = targ_id ;
         SELECT description INTO model_desc FROM RealmObject WHERE ro_id = targ_id ;
         SELECT security_groups INTO model_sg FROM RealmObject WHERE ro_id = targ_id ;
