@@ -83,13 +83,19 @@ INSERT INTO RealmObject(ro_id, designation, description, security_groups, type) 
 	('b7052c4f-4c6a-4464-a170-df67dfa337b7','protoRealm', 'Cest un Realm', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'2'),
 	('11312519-7704-4f6c-a039-d6cdcb7fa880','rootSecurityGroup', 'Cest un securityGroup', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'7'), 
 	('6f422ee4-9aa1-49a2-94b8-d1d0fc679900','rootUser', 'Cest un User', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'3'),
+	('d34fab0e-f5fc-4545-8eeb-cac3cd5cbe2a','basicRO', 'basicRO', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'10'),
+	('fff73e34-91af-4ed8-a79a-437bbcbed447','modelBasicRO', 'modelBasicRO', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'9'),
 	('03bbade3-ff5d-49bb-91b2-522e82b9b93d','rootData', 'Cest une data', ARRAY['11312519-7704-4f6c-a039-d6cdcb7fa880'],'8'); 
 
+INSERT INTO Model(m_id, m_name) VALUES
+	('fff73e34-91af-4ed8-a79a-437bbcbed447','basicRO');
+
 INSERT INTO Users(u_id, login, password, logged) VALUES
-	('6f422ee4-9aa1-49a2-94b8-d1d0fc679900','monUser','monPass',FALSE);
+	('6f422ee4-9aa1-49a2-94b8-d1d0fc679900','rootUser','monPass',FALSE),
+	('d34fab0e-f5fc-4545-8eeb-cac3cd5cbe2a','monUser','monPass',FALSE);
 	
 INSERT INTO SecurityGroup (sg_id, members, create_p, read_p, update_p, delete_p,superficial_read_p) VALUES
-	('11312519-7704-4f6c-a039-d6cdcb7fa880', ARRAY['6f422ee4-9aa1-49a2-94b8-d1d0fc679900'],6,6,6,6,6);
+	('11312519-7704-4f6c-a039-d6cdcb7fa880', ARRAY['6f422ee4-9aa1-49a2-94b8-d1d0fc679900','d34fab0e-f5fc-4545-8eeb-cac3cd5cbe2a'],6,6,6,6,6);
 	
 INSERT INTO Realm (r_id, ip_port) VALUES
 	('b7052c4f-4c6a-4464-a170-df67dfa337b7','176.179.71.10:80');
