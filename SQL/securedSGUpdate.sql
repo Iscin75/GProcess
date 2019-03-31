@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION securedSGCRUDUpdate(user_id VARCHAR, psg_id VARCHAR, colname VARCHAR, autorization INT) 
-RETURNS VOID AS $$
+RETURNS BOOLEAN AS $$
 
 DECLARE 
 
@@ -11,11 +11,15 @@ BEGIN
 	cur_priority  = getUpdatePriority(user_id, psg_id);
 	
 	CASE cur_priority
-		WHEN 1 OR 3 THEN
-	
-			 UPDATE securityGroup SET colname = autorization WHERE sg_id = psg_id;
+		WHEN 1 THEN
+			EXECUTE format('UPDATE securityGroup SET %1$I=%2$s WHERE sg_id=%3$L',colname, autorization,psg_id );
+			
+			 /*UPDATE securityGroup SET colname = autorization WHERE sg_id = psg_id;*/
 		WHEN 2 THEN
 			RAISE EXCEPTION 'Forbidden';
+		WHEN  3 THEN
+				EXECUTE format('UPDATE securityGroup SET %1$I=%2$s WHERE sg_id=%3$L',colname, autorization,psg_id );
+			
 		WHEN 4 THEN
 			RAISE EXCEPTION 'None';
 		WHEN 5 THEN
@@ -25,7 +29,7 @@ BEGIN
 	
 	END CASE;
 	
-	
+	RETURN TRUE;
 END; $$
 LANGUAGE 'plpgsql';
 
