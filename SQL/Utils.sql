@@ -304,7 +304,7 @@ BEGIN
 			RAISE EXCEPTION 'Unrelated';
 	
 	END CASE;
-
+	RETURN FALSE;
 
 END; $$ 
 
