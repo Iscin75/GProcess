@@ -59,10 +59,11 @@ BEGIN
             IF duplicated_model_name != '' THEN
                 duplicate_model_id = uuid_generate_v4 ();
 
-                INSERT INTO RealmObject(ro_id, designation, description, security_groups, type) VALUES
+                INSERT INTO RealmObject(ro_id, designation, description,data_core, security_groups, type) VALUES
                     (duplicate_model_id, 
                     (SELECT designation FROM RealmObject WHERE ro_id = mod_id), 
                     (SELECT description FROM RealmObject WHERE ro_id = mod_id), 
+                    (SELECT dta_core FROM RealmObject WHERE ro_id = mod_id),
                     (SELECT security_groups FROM RealmObject WHERE ro_id = mod_id), 
                     (SELECT type  FROM RealmObject WHERE ro_id = mod_id)
                     );
